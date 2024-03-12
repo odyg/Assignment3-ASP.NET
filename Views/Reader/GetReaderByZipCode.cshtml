@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Assignment3.Models.ReaderModel>
+
+@{
+    ViewData["Title"] = "Readers by Zip Code";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ReaderId</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>ZipCode</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reader in Model)
+        {
+            <tr>
+                <td>@reader.ReaderId</td>
+                <td>@reader.Name</td>
+                <td>@reader.Email</td>
+                <td>@reader.ZipCode</td>
+                <td>
+                    <!-- Update link -->
+                    <a asp-controller="Reader" asp-action="UpdateReader" asp-route-id="@reader.ReaderId" class="btn btn-primary">Update</a>
+                    <!-- Delete form -->
+                </td>
+                <td>
+                    <form asp-controller="Reader" asp-action="DeleteReader" asp-route-id="@reader.ReaderId" method="post" onsubmit="return confirm('Are you sure you want to delete this reader?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

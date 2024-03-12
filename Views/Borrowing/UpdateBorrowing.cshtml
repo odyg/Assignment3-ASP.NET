@@ -1,0 +1,27 @@
+﻿@model Assignment3.Models.BorrowingModel
+
+@{
+    ViewData["Title"] = "Update Borrowing";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="UpdateBorrowing" method="post" asp-controller="Borrowing">
+    <input type="hidden" asp-for="BorrowingId" />
+    <div>
+        <label asp-for="BookId"></label>
+        <input asp-for="BookId" />
+    </div>
+    <div>
+        <label asp-for="ReaderId"></label>
+        <input asp-for="ReaderId" />
+    </div>
+    <div>
+        <label asp-for="BorrowDate"></label>
+        <input asp-for="BorrowDate" />
+    </div>
+    <!-- Repeat for other fields -->
+    <div>
+        <input type="submit" value="Update Borrowing" />
+    </div>
+</form>

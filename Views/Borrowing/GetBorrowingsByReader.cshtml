@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Assignment3.Models.BorrowingModel>
+
+@{
+    ViewData["Title"] = "Borrowings by Reader";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>BorrowingId</th>
+            <th>BookId</th>
+            <th>ReaderId</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var borrowing in Model)
+        {
+            <tr>
+                <td>@borrowing.BorrowingId</td>
+                <td>@borrowing.BookId</td>
+                <td>@borrowing.ReaderId</td>
+                <td>@borrowing.BorrowDate.ToShortDateString()</td>
+                <td>@borrowing.ReturnDate</td>
+                <td>
+                    <!-- Update link -->
+                    <a asp-controller="Borrowing" asp-action="UpdateBorrowing" asp-route-id="@borrowing.BorrowingId" class="btn btn-primary">Update</a>
+                    <!-- Delete form -->
+                </td>
+                <td>
+                    <form asp-controller="Borrowing" asp-action="DeleteBorrowing" asp-route-id="@borrowing.BorrowingId" method="post" onsubmit="return confirm('Are you sure you want to delete this borrowing?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

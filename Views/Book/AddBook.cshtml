@@ -1,0 +1,40 @@
+﻿@model Assignment3.Models.BookModel
+
+@{
+    ViewData["Title"] = "Add New Book";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="AddBook" method="post" asp-controller="Book">
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" />
+    </div>
+    <div>
+        <label asp-for="Author"></label>
+        <input asp-for="Author" />
+    </div>
+    <div>
+        <label asp-for="ISBN"></label>
+        <input asp-for="ISBN" />
+    </div>
+    <div>
+        <label asp-for="PublicationYear"></label>
+        <input asp-for="PublicationYear" />
+    </div>
+    <div>
+		<label asp-for="Genre"></label>
+		<input asp-for="Genre" />
+    </div>
+    <div>
+        <label asp-for="IsAvailable"></label>
+        <input asp-for="IsAvailable" value="Yes" />
+    </div>
+    <!-- Repeat for other fields -->
+    <div>
+        <input type="submit" value="Add Book" />
+    </div>
+</form>
+
+ 

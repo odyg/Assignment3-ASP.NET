@@ -1,0 +1,36 @@
+﻿@model Assignment3.Models.BorrowingModel
+
+@{
+    ViewData["Title"] = "Add New Borrowing";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="AddBorrowing" method="post" asp-controller="Borrowing">
+    <div>
+        <label asp-for="BookId"></label>
+        <input asp-for="BookId" />
+    </div>
+    <div>
+        <label asp-for="ReaderId"></label>
+        <input asp-for="ReaderId" />
+    </div>
+    <div>
+        <label asp-for="BorrowDate"></label>
+        <input asp-for="BorrowDate" value="@DateTime.Today.ToShortDateString()" />
+    </div>
+  
+    <!-- Repeat for other fields -->
+    <div>
+        <input type="submit" value="Add Borrowing" />
+    </div>
+</form>
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
