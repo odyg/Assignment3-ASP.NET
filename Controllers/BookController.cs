@@ -84,11 +84,25 @@ namespace Assignment3.Controllers
         [Route("/Book/Delete/{id}")]
         public IActionResult DeleteBook(int id)
         {
+            var book = _repository.GetById(id);
+            if (book == null)
+            {
+                return NotFound(); // Or return a view that informs the book wasn't found.
+            }
+
+            if (book.IsAvailable == "No")
+            {
+                // Book is borrowed and can't be deleted. Store a warning message.
+                TempData["Warning"] = "The book is currently borrowed and cannot be deleted.";
+                return RedirectToAction("GetAllBooks");
+            }
+
             _repository.Delete(id);
-            return RedirectToAction("GetAllBooks"); // Redirect to the list view
+            TempData["Success"] = "Book deleted successfully.";
+            return RedirectToAction("GetAllBooks");
         }
 
-        
+
         [HttpGet]
         [Route("/Book/Genre")]
         public IActionResult GetBooksByGenre(string genre)

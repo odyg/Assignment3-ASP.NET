@@ -44,18 +44,7 @@ namespace Assignment3.Controllers
             return View();
         }
 
-        // POST: /Borrowing
-        //[HttpPost]
-        //[Route("/Borrowing/Add")]
-        //public IActionResult AddBorrowing(BorrowingModel borrowing)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _repository.Add(borrowing);
-        //        return RedirectToAction("GetAllBorrowings"); // Redirect to the list view
-        //    }
-        //    return View(borrowing);
-        //}
+       
         [HttpPost]
         [Route("/Borrowing/Add")]
         public IActionResult AddBorrowing(BorrowingModel borrowing)
@@ -143,13 +132,13 @@ namespace Assignment3.Controllers
         {
             try
             {
-                // Assume we set the return date to now. Adjust as necessary.
+                
                 _repository.ReturnBook(id, DateTime.Now);
                 return RedirectToAction("GetAllBorrowings"); // Redirect back to the list of all borrowings
             }
             catch (KeyNotFoundException ex)
             {
-                // Handle the error if no borrowing is found with the given ID
+                
                 // For example, you might log the error and return an error view or a NotFound result
                 return NotFound($"No borrowing found with ID {id}. Error: {ex.Message}");
             }

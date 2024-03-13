@@ -7,21 +7,21 @@
 <h2>@ViewData["Title"]</h2>
 
 <form asp-action="AddReader" method="post" asp-controller="Reader">
-    <div>
+    <div class="mb-1">
         <label asp-for="Name"></label>
         <input asp-for="Name" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="Email"></label>
         <input asp-for="Email" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="ZipCode"></label>
         <input asp-for="ZipCode" />
     </div>
    
     <!-- Repeat for other fields -->
-    <div>
+    <div class="mb-1">
         <input type="submit" value="Add Reader" />
     </div>
 </form>

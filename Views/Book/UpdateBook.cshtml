@@ -8,32 +8,32 @@
 
 <form asp-action="UpdateBook" method="post" asp-controller="Book">
     <input type="hidden" asp-for="BookId" />
-    <div>
+    <div class="mb-1">
         <label asp-for="Title"></label>
         <input asp-for="Title" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="Author"></label>
         <input asp-for="Author" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="ISBN"></label>
         <input asp-for="ISBN" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="PublicationYear"></label>
         <input asp-for="PublicationYear" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="Genre"></label>
         <input asp-for="Genre" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="IsAvailable"></label>
         <input asp-for="IsAvailable" />
     </div>
     <!-- Repeat for other fields -->
     <div>
-        <input type="submit" value="Update Book" />
+        <input type="submit" value="Update Book" class="btn btn-success mt-1" />
     </div>
 </form>

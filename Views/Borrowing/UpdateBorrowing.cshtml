@@ -8,20 +8,20 @@
 
 <form asp-action="UpdateBorrowing" method="post" asp-controller="Borrowing">
     <input type="hidden" asp-for="BorrowingId" />
-    <div>
+    <div class="mb-1">
         <label asp-for="BookId"></label>
         <input asp-for="BookId" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="ReaderId"></label>
         <input asp-for="ReaderId" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="BorrowDate"></label>
         <input asp-for="BorrowDate" />
     </div>
     <!-- Repeat for other fields -->
     <div>
-        <input type="submit" value="Update Borrowing" />
+        <input type="submit" value="Update Borrowing" class="btn btn-success mt-1" />
     </div>
 </form>

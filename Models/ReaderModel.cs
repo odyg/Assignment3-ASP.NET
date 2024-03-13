@@ -20,11 +20,6 @@ namespace Assignment3.Models
                 get; set;
             }
 
-        //[DataType(DataType.Date)]
-        //public DateTime RegistrationDate
-        //{
-        //    get; set;
-        //}
     }
     
 }

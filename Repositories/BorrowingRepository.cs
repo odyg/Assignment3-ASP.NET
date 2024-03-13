@@ -75,15 +75,6 @@ namespace Assignment3.Repositories
 
         public void Delete(int id)
         {
-            //var borrowing = _items.FirstOrDefault(b => b.BorrowingId == id);
-            //if (borrowing != null)
-            //{
-            //    _items.Remove(borrowing);
-            //}
-            //else
-            //{
-            //    throw new KeyNotFoundException($"No book found with ID {id}");
-            //}
             var borrowing = _items.FirstOrDefault(b => b.BorrowingId == id);
             if (borrowing != null)
             {

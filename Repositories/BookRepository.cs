@@ -62,12 +62,28 @@ namespace Assignment3.Repositories
             }
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            //var book = _items.FirstOrDefault(b => b.BookId == id);
+            //if (book != null)
+            //{
+            //    _items.Remove(book);
+            //}
+            //else
+            //{
+            //    throw new KeyNotFoundException($"No book found with ID {id}");
+            //}
             var book = _items.FirstOrDefault(b => b.BookId == id);
             if (book != null)
             {
+                if (book.IsAvailable == "No")
+                {
+                    // Book is not available for deletion (it's borrowed)
+                    return false;
+                }
+
                 _items.Remove(book);
+                return true;
             }
             else
             {

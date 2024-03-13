@@ -7,22 +7,22 @@
 <h2>@ViewData["Title"]</h2>
 
 <form asp-action="AddBorrowing" method="post" asp-controller="Borrowing">
-    <div>
+    <div class="mb-1">
         <label asp-for="BookId"></label>
         <input asp-for="BookId" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="ReaderId"></label>
         <input asp-for="ReaderId" />
     </div>
-    <div>
+    <div class="mb-1">
         <label asp-for="BorrowDate"></label>
         <input asp-for="BorrowDate" value="@DateTime.Today.ToShortDateString()" />
     </div>
   
     <!-- Repeat for other fields -->
-    <div>
-        <input type="submit" value="Add Borrowing" />
+    <div class="mb-1">
+        <input type="submit" value="Add Borrowing" class="btn btn-success mb-1"/>
     </div>
 </form>
 @if (!ViewData.ModelState.IsValid)

@@ -35,12 +35,11 @@
                 <td>@book.IsAvailable</td>
                 <td>
                     <!-- Update link -->
-                    <a asp-controller="Book" asp-action="UpdateBook" asp-route-id="@book.BookId" class="btn btn-primary">Update</a>
+                    <a asp-controller="Book" asp-action="UpdateBook" asp-route-id="@book.BookId" class="mb-1 btn btn-primary">Update</a>
                     <!-- Delete form -->
-                </td>
-                <td>
+                
                     <form asp-controller="Book" asp-action="DeleteBook" asp-route-id="@book.BookId" method="post" onsubmit="return confirm('Are you sure you want to delete this book?');">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger mb-1">Delete</button>
                     </form>
                 </td>
             </tr>
@@ -49,17 +48,17 @@
 </table>
 
 <!-- Add New Book button -->
-<a asp-controller="Book" asp-action="AddBook" class="btn btn-success">Add New Book</a>
+<a asp-controller="Book" asp-action="AddBook" class="btn btn-success mb-1">Add New Book</a>
 
 
-<form asp-action="GetBooksByGenre" method="get" asp-controller="Book">
+<form asp-action="GetBooksByGenre" method="get" asp-controller="Book" class="mb-1">
     <div>
         <label>Search by Genre</label>
         <input type="text" name="genre" />
         <input type="submit" value="Search" />
     </div>
 </form>
-<form asp-action="GetBookById" method="get" asp-controller="Book">
+<form asp-action="GetBookById" method="get" asp-controller="Book" class="mb-1">
     <div>
         <label>Search by Book ID</label>
         <input type="text" name="id" />
@@ -67,4 +66,18 @@
     </div>
 </form>
 
+@if (TempData["Warning"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Warning"]
+    </div>
+}
 
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<!-- The rest of your HTML goes here -->
