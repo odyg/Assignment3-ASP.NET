@@ -23,7 +23,7 @@ namespace Assignment3.Repositories
 
         public void Add(BorrowingModel item)
         {
-            var maxId = _items.Count;
+            var maxId = _items.Max(item => item.BorrowingId);
             item.BorrowingId = maxId + 1;
 
             // Check if the book has already been borrowed

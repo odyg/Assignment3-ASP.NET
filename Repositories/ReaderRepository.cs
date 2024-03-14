@@ -13,7 +13,7 @@ namespace Assignment3.Repositories
 
         public void Add(ReaderModel item)
         {
-            var maxId = _items.Count;
+            var maxId = _items.Max(item => item.ReaderId);
             item.ReaderId = maxId + 1;
             _items.Add(item);
         }
