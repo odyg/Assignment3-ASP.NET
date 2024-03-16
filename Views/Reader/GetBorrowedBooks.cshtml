@@ -1,0 +1,36 @@
+﻿@model List<BorrowingModel>
+
+@{
+    ViewData["Title"] = "Borrowed Books";
+}
+
+<h2>Borrowed Books</h2>
+
+@if (!Model.Any())
+{
+    <p>This reader has no borrowed books.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Borrowing ID</th>
+                <th>Book ID</th>
+                <th>Borrow Date</th>
+                <th>Return Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var borrowing in Model)
+            {
+                <tr>
+                    <td>@borrowing.BorrowingId</td>
+                    <td>@borrowing.BookId</td>
+                    <td>@borrowing.BorrowDate.ToShortDateString()</td>
+                    <td>@borrowing.ReturnDate?.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

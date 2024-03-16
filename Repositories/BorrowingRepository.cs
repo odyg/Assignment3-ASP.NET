@@ -1,16 +1,28 @@
 ﻿using Assignment3.Models;
-using System.ComponentModel.DataAnnotations;
+using System.Reflection.PortableExecutable;
+//using System.ComponentModel.DataAnnotations;
 
 namespace Assignment3.Repositories
 {
     public class BorrowingRepository
     {
         private BookRepository _bookRepository;
+        private ReaderRepository _readerRepository;
 
-        public BorrowingRepository(BookRepository bookRepository)
+        public BorrowingRepository(BookRepository bookRepository, ReaderRepository readerRepository)
         {
             _bookRepository = bookRepository;
+            _readerRepository = readerRepository;
         }
+
+        //private readonly BookRepository _bookRepository;
+        //private readonly ReaderRepository _readerRepository;
+
+        //public BorrowingRepository(BookRepository bookRepository, ReaderRepository readerRepository)
+        //{
+        //    _bookRepository = bookRepository;
+        //    _readerRepository = readerRepository;
+        //}
 
         public static List<BorrowingModel> _items = new List<BorrowingModel>()
         {
@@ -21,20 +33,45 @@ namespace Assignment3.Repositories
         };
 
 
+        //public void Add(BorrowingModel item)
+        //{
+        //    var maxId = _items.Max(item => item.BorrowingId);
+        //    item.BorrowingId = maxId + 1;
+
+        //    // Check if the book has already been borrowed
+        //    if (_items.Any(i => i.BookId == item.BookId))
+        //    {
+        //        throw new InvalidOperationException("This book has already been borrowed.");
+        //    }
+
+        //    _items.Add(item);
+        //    _bookRepository.UpdateBookAvailability(item.BookId, false);
+        //}
+
         public void Add(BorrowingModel item)
         {
-            var maxId = _items.Max(item => item.BorrowingId);
+            var maxId = _items.Any() ? _items.Max(item => item.BorrowingId) : 0;
             item.BorrowingId = maxId + 1;
 
-            // Check if the book has already been borrowed
-            if (_items.Any(i => i.BookId == item.BookId))
+            if (_items.Any(i => i.BookId == item.BookId && i.ReturnDate == null))
             {
                 throw new InvalidOperationException("This book has already been borrowed.");
             }
 
             _items.Add(item);
             _bookRepository.UpdateBookAvailability(item.BookId, false);
+
+            // Also, add this borrowing to the reader's borrowed books list
+            var reader = _readerRepository.GetById(item.ReaderId);
+            if (reader != null)
+            {
+                reader.BorrowedBooks.Add(item);
+                // Assuming ReaderRepository has an update method to handle changes
+                _readerRepository.Update(reader.ReaderId, reader);
+            }
         }
+
+
 
         public IEnumerable<BorrowingModel> GetAll()
         {
@@ -93,6 +130,18 @@ namespace Assignment3.Repositories
             {
                 borrowing.ReturnDate = returnDate; // Set the return date
                 _bookRepository.SetBookAsAvailable(borrowing.BookId); // Set the book as available
+                                                                      // Update the BorrowedBooks list of the reader
+                var reader = _readerRepository.GetById(borrowing.ReaderId);
+                if (reader != null)
+                {
+                    var bookToRemove = reader.BorrowedBooks.FirstOrDefault(b => b.BorrowingId == borrowingId);
+                    if (bookToRemove != null)
+                    {
+                        reader.BorrowedBooks.Remove(bookToRemove);
+                        // Assuming ReaderRepository has an update method to handle changes
+                        _readerRepository.Update(reader.ReaderId, reader);
+                    }
+                }                                                          // Update the BorrowedBooks list of the reader
             }
             else
             {

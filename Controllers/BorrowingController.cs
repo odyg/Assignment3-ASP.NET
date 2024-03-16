@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Assignment3.Models;
-using Assignment3.Controllers;
+//using Assignment3.Controllers;
 using Assignment3.Repositories;
 
 namespace Assignment3.Controllers
@@ -10,10 +10,16 @@ namespace Assignment3.Controllers
     {
         public BorrowingRepository _repository;
 
-        public BorrowingController()
+        //public BorrowingController()
+        //{
+        //    var bookRepository = new BookRepository(); // Create a BookRepository instance
+        //    var readerRepository = new ReaderRepository(); // Create a ReaderRepository instance
+        //    _repository = new BorrowingRepository(bookRepository, readerRepository);
+        //}
+
+        public BorrowingController(BorrowingRepository repository)
         {
-            var bookRepository = new BookRepository(); // Create a BookRepository instance
-            _repository = new BorrowingRepository(bookRepository); // Pass it to the BorrowingRepository
+            _repository = repository;
         }
         // GET: /Borrowing
         [HttpGet]
@@ -63,6 +69,8 @@ namespace Assignment3.Controllers
             }
             return View(borrowing); // Return to the same view with the error message if ModelState is invalid or an exception occurs
         }
+
+
 
 
         [HttpGet]

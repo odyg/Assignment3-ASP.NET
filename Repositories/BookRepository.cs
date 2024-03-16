@@ -1,6 +1,6 @@
 ﻿using Assignment3.Models;
-using System.Linq;
-using System.Collections.Generic;
+//using System.Linq;
+//using System.Collections.Generic;
 
 namespace Assignment3.Repositories
 {
@@ -64,15 +64,6 @@ namespace Assignment3.Repositories
 
         public bool Delete(int id)
         {
-            //var book = _items.FirstOrDefault(b => b.BookId == id);
-            //if (book != null)
-            //{
-            //    _items.Remove(book);
-            //}
-            //else
-            //{
-            //    throw new KeyNotFoundException($"No book found with ID {id}");
-            //}
             var book = _items.FirstOrDefault(b => b.BookId == id);
             if (book != null)
             {

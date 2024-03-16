@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Assignment3.Models;
 using Assignment3.Repositories;
-using Microsoft.AspNetCore.Mvc.Rendering;
+//using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Assignment3.Controllers
 {
@@ -9,9 +9,14 @@ namespace Assignment3.Controllers
     {
         public BookRepository _repository;
 
-        public BookController()
+        //public BookController()
+        //{
+        //    _repository = new BookRepository();
+        //}
+
+        public BookController(BookRepository repository)
         {
-            _repository = new BookRepository();
+            _repository = repository;
         }
 
         // GET: /Book

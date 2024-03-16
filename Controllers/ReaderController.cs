@@ -4,15 +4,15 @@ using Assignment3.Repositories;
 
 namespace Assignment3.Controllers
 {
-    
     public class ReaderController : Controller
     {
         public ReaderRepository _repository;
 
-        public ReaderController()
+        public ReaderController(ReaderRepository repository)
         {
-            _repository = new ReaderRepository();
+            _repository = repository;
         }
+
         // GET: /Reader
         [HttpGet]
         [Route("/Reader")]
@@ -77,14 +77,35 @@ namespace Assignment3.Controllers
         }
 
         // DELETE: /Reader/{id}
+        //[HttpPost]
+        //[Route("/Reader/Delete/{id}")]
+        //public IActionResult DeleteReader(int id)
+        //{
+        //    _repository.Delete(id);
+        //    return RedirectToAction("GetAllReaders");
+        //}
         [HttpPost]
         [Route("/Reader/Delete/{id}")]
         public IActionResult DeleteReader(int id)
         {
+            var reader = _repository.GetById(id);
+            if (reader == null)
+            {
+                return NotFound(); // Or return a view that informs the book wasn't found.
+            }
+
+            if (reader.BorrowedBooks.Count > 0)
+            {
+                // Book is borrowed and can't be deleted. Store a warning message.
+                TempData["Warning"] = "Cannot delete reader with borrowed books.";
+                return RedirectToAction("GetAllReaders");
+            }
+
             _repository.Delete(id);
+            TempData["Success"] = "Reader deleted successfully.";
             return RedirectToAction("GetAllReaders");
         }
-        
+
         [HttpGet]
         [Route("/Reader/ZipCode")]
         public IActionResult GetReaderByZipCode(string zipcode)
@@ -97,6 +118,16 @@ namespace Assignment3.Controllers
             }
             return NotFound(); // Or return a NotFound result
         }
+
+        [HttpGet]
+        [Route("/Reader/{id}/BorrowedBooks")]
+        public IActionResult GetBorrowedBooks(int id)
+        {
+            var borrowedBooks = _repository.GetBorrowedBooks(id);
+            // Optionally, use AutoMapper or manual mapping to convert BorrowingModel instances to a ViewModel if needed
+            return View(borrowedBooks);
+        }
+
     }
 }
 
